@@ -67,10 +67,9 @@ func main() {
 
 	fmt.Println("total time taken: ", (time.Now().Nanosecond()-start))
 }
-
 func walkDir(dir string, fileSizeChan chan <- int64){
 	defer wg.Done()
-	for  _,entry := range dirents(dir){
+	for  _,entry := range directoryEntries(dir){
 		if entry.IsDir(){
 			subdir:=filepath.Join(dir, entry.Name())
 			wg.Add(1)
@@ -81,7 +80,7 @@ func walkDir(dir string, fileSizeChan chan <- int64){
 	}
 }
 var sem chan int = make (chan int, 2)
-func dirents (dir string) ([]os.FileInfo){
+func directoryEntries(dir string) ([]os.FileInfo){
 
 	sem <- 1
 	defer func (){
