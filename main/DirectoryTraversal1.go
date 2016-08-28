@@ -79,7 +79,7 @@ func walkDir(dir string, fileSizeChan chan <- int64){
 		}
 	}
 }
-var sem chan int = make (chan int, 2)
+var sem chan int = make (chan int, 10)
 func directoryEntries(dir string) ([]os.FileInfo){
 
 	sem <- 1
